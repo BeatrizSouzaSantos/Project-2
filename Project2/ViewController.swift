@@ -26,6 +26,11 @@ class ViewController: UIViewController {
         button2.layer.borderWidth = 1
         button3.layer.borderWidth = 1
         
+        //colocando cores nas bordas
+        button1.layer.borderColor = UIColor.lightGray.cgColor
+        button2.layer.borderColor = UIColor.lightGray.cgColor
+        button3.layer.borderColor = UIColor.lightGray.cgColor
+        
         //chamando funcao
         askQuestion()
     }
