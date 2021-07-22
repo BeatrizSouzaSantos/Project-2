@@ -8,6 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     //MARK: - IBOutlats
     
     @IBOutlet var button1: UIButton!
@@ -40,7 +41,8 @@ class ViewController: UIViewController {
     }
     
     //exibindo imagem
-    func askQuestion(){
+    //exibindo alerta
+    func askQuestion(action: UIAlertAction! = nil){
         //colocnado a visualizacao em ordem
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
@@ -48,9 +50,30 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
+        //mostrando nome na topbar
         title = countries[correctAnswer].uppercased()
     }
+    // MARK: - IBActions
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        
+        var title: String
 
+        if sender.tag == correctAnswer {
+            title = "Correct"
+            score += 1
+        } else {
+            title = "Wrong"
+            score -= 1
+    }
+        
+        //alerta
+        let ac = UIAlertController(title: title, message: "Your score is \(score).", preferredStyle: .alert)
+        // colocando botao no alerta
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        
+        present(ac, animated: true)
+    }
+    
 
 }
 
