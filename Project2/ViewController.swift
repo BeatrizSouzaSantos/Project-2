@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var countries = [String] ()
     var score = 0
+    var scoreCounter = 0
     //randomizacao automatica
     var correctAnswer = 0
     
@@ -51,7 +52,7 @@ class ViewController: UIViewController {
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
         //mostrando nome na topbar
-        title = countries[correctAnswer].uppercased()
+        title = countries[correctAnswer].uppercased() + "   score \(score)"
     }
     // MARK: - IBActions
     @IBAction func buttonTapped(_ sender: UIButton) {
@@ -61,19 +62,31 @@ class ViewController: UIViewController {
         if sender.tag == correctAnswer {
             title = "Correct"
             score += 1
+            scoreCounter += 1
         } else {
-            title = "Wrong"
+            title = "Wrong! This is \(countries[correctAnswer].uppercased())"
             score -= 1
+            scoreCounter += 1
     }
         
         //alerta
+        if scoreCounter < 10 {
         let ac = UIAlertController(title: title, message: "Your score is \(score).", preferredStyle: .alert)
         // colocando botao no alerta
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-        
         present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: title, message: "End the Game. You guessed right \(score)", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Try again", style: .default, handler: askQuestion))
+            present(ac, animated: true)
+            
+            score = 0
+            scoreCounter = 0
+        
     }
+    
     
 
 }
 
+}
